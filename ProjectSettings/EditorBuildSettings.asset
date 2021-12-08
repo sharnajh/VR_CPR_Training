@@ -5,8 +5,17 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 1
+  - enabled: 0
     path: Assets/Samples/hellocardboard-unity/Scenes/HelloCardboard-Full.unity
     guid: dee7b7bee63ec95468620aab2f0fdf01
+  - enabled: 0
+    path: Assets/Samples/hellocardboard-unity/Scenes/VrMode.unity
+    guid: 4812ec05e87b8414abcdfe0d625c0e60
+  - enabled: 1
+    path: Assets/Samples/hellocardboard-unity/Scenes/HelloCardboard.unity
+    guid: 145a2a45d7bc746b19cb68410368bf96
+  - enabled: 0
+    path: Assets/Scenes/Environment.unity
+    guid: 9fc0d4010bbf28b4594072e72b8655ab
   m_configObjects:
     com.unity.xr.management.loader_settings: {fileID: 11400000, guid: c0667c1bc2229cb469d14d9bf137449a, type: 2}

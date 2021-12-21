@@ -102,7 +102,8 @@ public class ObjectController : MonoBehaviour
     /// </summary>
     public void OnPointerClick()
     {
-        TeleportRandomly();
+        /*TeleportRandomly();*/
+        Debug.Log(gameObject.name);
     }
 
     /// <summary>

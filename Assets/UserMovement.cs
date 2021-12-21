@@ -5,6 +5,7 @@ using UnityEngine;
 public class UserMovement : MonoBehaviour
 {
     private float speed = 3.5f;
+    bool crouched = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -32,9 +33,18 @@ public class UserMovement : MonoBehaviour
         {
             pos.z += speed * Time.deltaTime;
         }
-        if (Input.GetKey("c"))
+        if (Input.GetKeyDown("c"))
         {
-            pos.y = 2;
+            /*pos.y = 2.7f;*/
+            crouched = !crouched;
+            if (crouched)
+            {
+                pos.y = 2.7f;
+            }
+            else
+            {
+                pos.y = 4f;
+            }
         }
 
 

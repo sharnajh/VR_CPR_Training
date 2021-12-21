@@ -64,7 +64,8 @@ public class ObjectController : MonoBehaviour
     private Vector3 _startingPosition;
 
     float pulseTimer = 10.0f;
-    float compressionTimer = 60.0f;
+    // For the sake of presentation, set to 25. Functionally, it should be 60.
+    float compressionTimer = 25.0f;
     int compressionCount = 0;
 
     /// <summary>
@@ -111,7 +112,7 @@ public class ObjectController : MonoBehaviour
                 Compressions = false;
                 compressionsUI.gameObject.SetActive(false);
                 thankYouSound.gameObject.SetActive(true);
-                textObject.text = "The patient has regained consciousness! Excellent work!";
+                textObject.text = "\"Thank you! You saved my life!\"";
             }
         }
     }

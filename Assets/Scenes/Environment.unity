@@ -13246,7 +13246,7 @@ MonoBehaviour:
     m_LineSpacing: 2.3
   m_Text: 'Compressions: 0
 
-    Time: 0:60'
+    Time: 00:60'
 --- !u!222 &1220036071
 CanvasRenderer:
   m_ObjectHideFlags: 0

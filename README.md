@@ -6,19 +6,40 @@ The increasing need to learn and simulate Cardiopulmonary resuscitation (CPR) ha
 
 # Pre-CPR procedures (the user is the person conducting the CPR in the simulation): 
 -The user looks around and checks to see if there is a person in need of CPR ( in a life threatening situation).
--After identifying the patient, the user checks to see if the patient is breathing. 
-   	 -The user then should tap and check if patient responds (moves/talks)
-   	 -The user should then check if the patient is breathing properly.
--Even before conducting the CPR, the first thing the user should do is to acquire a phone and call 911 for immediate emergency care as soon as possible.
--After that, the user should check patient's pulse ( for max 10 seconds )
-    	 -If the user is unsure about the pulse, or cannot locate the pulse, the user should immediately start the CPR.
 
-# CPR procedures:
+-After identifying the patient, the user checks to see if the patient is breathing. 
+
+-The user then should tap and check if patient responds (moves/talks)
+       
+-The user should then check if the patient is breathing properly.
+
+-Even before conducting the CPR, the first thing the user should do is to acquire a phone and call 911 for immediate emergency care as soon as possible.
+
+-After that, the user should check patient's pulse ( for max 10 seconds )
+
+-If the user is unsure about the pulse, or cannot locate the pulse, the user should immediately start the CPR.
+
+# CPR procedures implemented in the project :
 -The user should be beside the patient. (the patient should lay horizontally in front of the user).
+
 -The patient should be laid on a flat surface (floor, bed, etc)
+
 -The user should remove clothes from the patient’s chest area to conduct the CPR effectively without obstructions.
+
 -The user should have the correct hand position and posture for the chest compressions.
-      		1. Heel of 1 hand should be on the breastbone (between the nipples)
-    	 	 2. The other hand should be on top of the first hand, fingers should be interlaced.
-      		3. Make sure that the pressure applied is from the heels of the hand (not the fingers)
+
+1. Heel of 1 hand should be on the breastbone (between the nipples)
+            
+2. The other hand should be on top of the first hand, fingers should be interlaced.
+          
+3. Make sure that the pressure applied is from the heels of the hand (not the fingers)
+ 
+4.The user needs to make sure that the chest compressions  must  be at least 2 inches, and not above 2.4 inches. 
+
+-Also, the user  should maintain a compression rate of 100-120 compressions per minute.
+
+-After each compression, the user should make sure the chest rises up completely, before starting a new compression.
+
+
+
 

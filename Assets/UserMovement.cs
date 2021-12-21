@@ -32,6 +32,10 @@ public class UserMovement : MonoBehaviour
         {
             pos.z += speed * Time.deltaTime;
         }
+        if (Input.GetKey("c"))
+        {
+            pos.y = 2;
+        }
 
 
         transform.position = pos;

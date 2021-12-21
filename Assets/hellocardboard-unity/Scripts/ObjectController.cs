@@ -42,9 +42,11 @@ public class ObjectController : MonoBehaviour
     // References to UI elements
     public Text textObject;
     public Text countdownObject;
+    public Text compressionTextObject;
     public Button trueButton;
     public Button falseButton;
     public GameObject pulseUI;
+    public GameObject compressionsUI;
 
     public GameObject Player;
     private UserMovement CrouchedBool;
@@ -60,7 +62,9 @@ public class ObjectController : MonoBehaviour
     private Renderer _myRenderer;
     private Vector3 _startingPosition;
 
-    float timeRemaining = 10.0f;
+    float pulseTimer = 10.0f;
+    float compressionTimer = 60.0f;
+    int compressionCount = 0;
 
     /// <summary>
     /// Start is called before the first frame update.
@@ -79,17 +83,32 @@ public class ObjectController : MonoBehaviour
         if (CheckPulse)
         {
             pulseUI.gameObject.SetActive(true);
-            if (timeRemaining > 0)
+            if (pulseTimer > 0)
             {
-                countdownObject.text = Mathf.Round(timeRemaining).ToString();
-                timeRemaining -= Time.deltaTime;
+                countdownObject.text = Mathf.Round(pulseTimer).ToString();
+                pulseTimer -= Time.deltaTime;
             }
             else
             {
                 pulseUI.gameObject.SetActive(false);
-                textObject.text = "The patient's pulse is very faint! Start chest compressions now!";
+                compressionsUI.gameObject.SetActive(true);
+                textObject.text = "The patient's pulse is very faint! Start chest compressions now! Compression Rate is 100 - 120 compressions per minute!";
                 CheckPulse = false;
                 Compressions = true;
+            }
+        }
+
+        if (Compressions && compressionCount > 0)
+        {
+            if (compressionTimer > 0)
+            {
+                compressionTextObject.text = "Compressions: " + compressionCount.ToString() + "\nTimer: 00:" + Mathf.Round(compressionTimer).ToString();
+                compressionTimer -= Time.deltaTime;
+            }
+            else
+            {
+                Compressions = false;
+                compressionsUI.gameObject.SetActive(false);
             }
         }
     }
@@ -156,10 +175,11 @@ public class ObjectController : MonoBehaviour
         {
             textObject.text = "Check the pulse and breathing of the patient for 10 seconds...";
             CheckPulse = true;
+            ConditionQuiz = false;
         }
         if (Compressions)
         {
-            
+            compressionCount++;
         }
     }
 

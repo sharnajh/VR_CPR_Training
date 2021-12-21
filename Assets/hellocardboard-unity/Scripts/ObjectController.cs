@@ -18,12 +18,15 @@
 
 using System.Collections;
 using UnityEngine;
+using UnityEngine.UI;
 
 /// <summary>
 /// Controls target objects behaviour.
 /// </summary>
 public class ObjectController : MonoBehaviour
 {
+    bool Identified = false;
+    bool ConditionQuiz = false;
     /// <summary>
     /// The material to use when this object is inactive (not being gazed at).
     /// </summary>
@@ -33,6 +36,11 @@ public class ObjectController : MonoBehaviour
     /// The material to use when this object is active (gazed at).
     /// </summary>
     public Material GazedAtMaterial;
+
+    // References to UI elements
+    public Text textObject;
+    public Button trueButton;
+    public Button falseButton;
 
     // The objects are about 1 meter in radius, so the min/max target distance are
     // set so that the objects are always within the room (which is about 5 meters
@@ -50,6 +58,7 @@ public class ObjectController : MonoBehaviour
     /// </summary>
     public void Start()
     {
+        textObject.text = "Looks like someone needs your help! Please identify the subject who needs CPR.";
         _startingPosition = transform.parent.localPosition;
         _myRenderer = GetComponent<Renderer>();
         SetMaterial(false);
@@ -104,6 +113,27 @@ public class ObjectController : MonoBehaviour
     {
         /*TeleportRandomly();*/
         Debug.Log(gameObject.name);
+
+        if (!Identified)
+        {
+            Identified = true;
+            textObject.text = "Assess the situation. What has happened to the patient?";
+            trueButton.gameObject.SetActive(true);
+            falseButton.gameObject.SetActive(true);
+        }
+    }
+
+    public void FalseQuiz()
+    {
+        textObject.text = "The patient is clearly not drowning. Assess and try again.";
+        falseButton.gameObject.SetActive(false);
+    }
+
+    public void CorrectQuiz()
+    {
+        trueButton.gameObject.SetActive(false);
+        falseButton.gameObject.SetActive(false);
+        textObject.text = "The patient is choking. Crouch down to the patient's level to begin CPR.";
     }
 
     /// <summary>

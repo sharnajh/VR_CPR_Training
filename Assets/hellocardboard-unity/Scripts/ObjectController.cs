@@ -109,6 +109,7 @@ public class ObjectController : MonoBehaviour
             {
                 Compressions = false;
                 compressionsUI.gameObject.SetActive(false);
+                textObject.text = "The patient has regained consciousness! Excellent work!";
             }
         }
     }

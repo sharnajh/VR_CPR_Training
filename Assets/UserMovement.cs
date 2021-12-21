@@ -5,7 +5,7 @@ using UnityEngine;
 public class UserMovement : MonoBehaviour
 {
     private float speed = 3.5f;
-    bool crouched = false;
+    public bool crouched = false;
     // Start is called before the first frame update
     void Start()
     {

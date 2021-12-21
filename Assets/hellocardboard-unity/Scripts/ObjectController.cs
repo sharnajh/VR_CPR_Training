@@ -27,6 +27,8 @@ public class ObjectController : MonoBehaviour
 {
     bool Identified = false;
     bool ConditionQuiz = false;
+    bool CheckPulse = false;
+    bool Compressions = false;
     /// <summary>
     /// The material to use when this object is inactive (not being gazed at).
     /// </summary>
@@ -39,8 +41,13 @@ public class ObjectController : MonoBehaviour
 
     // References to UI elements
     public Text textObject;
+    public Text countdownObject;
     public Button trueButton;
     public Button falseButton;
+    public GameObject pulseUI;
+
+    public GameObject Player;
+    private UserMovement CrouchedBool;
 
     // The objects are about 1 meter in radius, so the min/max target distance are
     // set so that the objects are always within the room (which is about 5 meters
@@ -53,16 +60,40 @@ public class ObjectController : MonoBehaviour
     private Renderer _myRenderer;
     private Vector3 _startingPosition;
 
+    float timeRemaining = 10.0f;
+
     /// <summary>
     /// Start is called before the first frame update.
     /// </summary>
     public void Start()
     {
+        CrouchedBool = Player.GetComponent<UserMovement>();
         textObject.text = "Looks like someone needs your help! Please identify the subject who needs CPR.";
         _startingPosition = transform.parent.localPosition;
         _myRenderer = GetComponent<Renderer>();
         SetMaterial(false);
     }
+
+    public void Update()
+    {
+        if (CheckPulse)
+        {
+            pulseUI.gameObject.SetActive(true);
+            if (timeRemaining > 0)
+            {
+                countdownObject.text = Mathf.Round(timeRemaining).ToString();
+                timeRemaining -= Time.deltaTime;
+            }
+            else
+            {
+                pulseUI.gameObject.SetActive(false);
+                textObject.text = "The patient's pulse is very faint! Start chest compressions now!";
+                CheckPulse = false;
+                Compressions = true;
+            }
+        }
+    }
+
 
     /// <summary>
     /// Teleports this instance randomly when triggered by a pointer click.
@@ -121,6 +152,15 @@ public class ObjectController : MonoBehaviour
             trueButton.gameObject.SetActive(true);
             falseButton.gameObject.SetActive(true);
         }
+        if (ConditionQuiz && CrouchedBool.crouched)
+        {
+            textObject.text = "Check the pulse and breathing of the patient for 10 seconds...";
+            CheckPulse = true;
+        }
+        if (Compressions)
+        {
+            
+        }
     }
 
     public void FalseQuiz()
@@ -131,9 +171,10 @@ public class ObjectController : MonoBehaviour
 
     public void CorrectQuiz()
     {
+        ConditionQuiz = true;
         trueButton.gameObject.SetActive(false);
         falseButton.gameObject.SetActive(false);
-        textObject.text = "The patient is choking. Crouch down to the patient's level to begin CPR.";
+        textObject.text = "The patient is choking. Crouch down to the patient's level to check their pulse.";
     }
 
     /// <summary>

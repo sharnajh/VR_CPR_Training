@@ -47,6 +47,7 @@ public class ObjectController : MonoBehaviour
     public Button falseButton;
     public GameObject pulseUI;
     public GameObject compressionsUI;
+    public GameObject thankYouSound;
 
     public GameObject Player;
     private UserMovement CrouchedBool;
@@ -109,6 +110,7 @@ public class ObjectController : MonoBehaviour
             {
                 Compressions = false;
                 compressionsUI.gameObject.SetActive(false);
+                thankYouSound.gameObject.SetActive(true);
                 textObject.text = "The patient has regained consciousness! Excellent work!";
             }
         }

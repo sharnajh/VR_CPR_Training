@@ -18,12 +18,17 @@
 
 using System.Collections;
 using UnityEngine;
+using UnityEngine.UI;
 
 /// <summary>
 /// Controls target objects behaviour.
 /// </summary>
 public class ObjectController : MonoBehaviour
 {
+    bool Identified = false;
+    bool ConditionQuiz = false;
+    bool CheckPulse = false;
+    bool Compressions = false;
     /// <summary>
     /// The material to use when this object is inactive (not being gazed at).
     /// </summary>
@@ -33,6 +38,18 @@ public class ObjectController : MonoBehaviour
     /// The material to use when this object is active (gazed at).
     /// </summary>
     public Material GazedAtMaterial;
+
+    // References to UI elements
+    public Text textObject;
+    public Text countdownObject;
+    public Text compressionTextObject;
+    public Button trueButton;
+    public Button falseButton;
+    public GameObject pulseUI;
+    public GameObject compressionsUI;
+
+    public GameObject Player;
+    private UserMovement CrouchedBool;
 
     // The objects are about 1 meter in radius, so the min/max target distance are
     // set so that the objects are always within the room (which is about 5 meters
@@ -45,15 +62,58 @@ public class ObjectController : MonoBehaviour
     private Renderer _myRenderer;
     private Vector3 _startingPosition;
 
+    float pulseTimer = 10.0f;
+    float compressionTimer = 60.0f;
+    int compressionCount = 0;
+
     /// <summary>
     /// Start is called before the first frame update.
     /// </summary>
     public void Start()
     {
+        CrouchedBool = Player.GetComponent<UserMovement>();
+        textObject.text = "Looks like someone needs your help! Please identify the subject who needs CPR.";
         _startingPosition = transform.parent.localPosition;
         _myRenderer = GetComponent<Renderer>();
         SetMaterial(false);
     }
+
+    public void Update()
+    {
+        if (CheckPulse)
+        {
+            pulseUI.gameObject.SetActive(true);
+            if (pulseTimer > 0)
+            {
+                countdownObject.text = Mathf.Round(pulseTimer).ToString();
+                pulseTimer -= Time.deltaTime;
+            }
+            else
+            {
+                pulseUI.gameObject.SetActive(false);
+                compressionsUI.gameObject.SetActive(true);
+                textObject.text = "The patient's pulse is very faint! Start chest compressions now! Compression Rate is 100 - 120 compressions per minute!";
+                CheckPulse = false;
+                Compressions = true;
+            }
+        }
+
+        if (Compressions && compressionCount > 0)
+        {
+            if (compressionTimer > 0)
+            {
+                compressionTextObject.text = "Compressions: " + compressionCount.ToString() + "\nTimer: 00:" + Mathf.Round(compressionTimer).ToString();
+                compressionTimer -= Time.deltaTime;
+            }
+            else
+            {
+                Compressions = false;
+                compressionsUI.gameObject.SetActive(false);
+                textObject.text = "The patient has regained consciousness! Excellent work!";
+            }
+        }
+    }
+
 
     /// <summary>
     /// Teleports this instance randomly when triggered by a pointer click.
@@ -102,7 +162,40 @@ public class ObjectController : MonoBehaviour
     /// </summary>
     public void OnPointerClick()
     {
-        TeleportRandomly();
+        /*TeleportRandomly();*/
+        Debug.Log(gameObject.name);
+
+        if (!Identified)
+        {
+            Identified = true;
+            textObject.text = "Assess the situation. What has happened to the patient?";
+            trueButton.gameObject.SetActive(true);
+            falseButton.gameObject.SetActive(true);
+        }
+        if (ConditionQuiz && CrouchedBool.crouched)
+        {
+            textObject.text = "Check the pulse and breathing of the patient for 10 seconds...";
+            CheckPulse = true;
+            ConditionQuiz = false;
+        }
+        if (Compressions)
+        {
+            compressionCount++;
+        }
+    }
+
+    public void FalseQuiz()
+    {
+        textObject.text = "The patient is clearly not drowning. Assess and try again.";
+        falseButton.gameObject.SetActive(false);
+    }
+
+    public void CorrectQuiz()
+    {
+        ConditionQuiz = true;
+        trueButton.gameObject.SetActive(false);
+        falseButton.gameObject.SetActive(false);
+        textObject.text = "The patient is choking. Crouch down to the patient's level to check their pulse.";
     }
 
     /// <summary>

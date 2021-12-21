@@ -1,5 +1,7 @@
 # VR CPR Simulation in Unity using Google Cardboard
 
+![Demo of checking pulse and chest compressions in VR](Assets/Screenshots/demo.gif)
+
 ## VR CPR Simulation
 
 The increasing need to learn and simulate Cardiopulmonary resuscitation (CPR) has only increased rapidly, after covid-19 pandemic, and continues to rise drastically. Since most things in life during the pandemic have become virtual, we decided to use Virtual reality to simulate how a person can conduct CPR correctly. We wanted to create this project in a way that can be played repeatedly, which can allow the user to perform the CPR as many times as they would like to learn it properly. We provide information on how the CPR should be done, simulate a possible scenario where a possible CPR is needed, and show proper movements, and actions required to perform CPR on a person. Lastly, we implement a quiz for the user to test their knowledge on how much they have learnt about CPR through this virtual CPR simulation. We used Google Cardboard as our virtual device since it is the most affordable, and convenient for most people. We also worked on the project using Unity 3D development software, and C# programming language. 
